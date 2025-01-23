@@ -19,7 +19,9 @@ export default function Home() {
           <TopBar topBarColor={topBarColor} />
           {/*  Heading of Greeting */}
           <View style={styles.headingArea}>
-            <H1 color="white" fontSize={40}>What's up, Olivia!</H1>
+            <H1 color="white" fontSize={40}>
+              What's up, Olivia!
+            </H1>
           </View>
         </YStack>
       </View>
