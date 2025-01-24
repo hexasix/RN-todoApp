@@ -1,25 +1,59 @@
-import { todos } from "@/mock/todos";
-import { View } from "react-native";
+import { TaskColor, todos } from "@/mock/todos";
+import { View,ScrollView, Platform } from "react-native";
 import { Text, YStack, XStack, Checkbox } from "tamagui";
 import { StyleSheet, FlatList } from "react-native";
 import SectionTitle from "../common/sectionTitle";
-import { Check as CheckIcon } from '@tamagui/lucide-icons'
+import { Check as CheckIcon } from "@tamagui/lucide-icons";
+
 export default function Tasks() {
   const title = "TODAY'S TASKS";
   const styles = createStyles();
+  const renderItem = ({
+    title,
+    color,
+  }: {
+    title: string;
+    color: TaskColor;
+  }) => {
+    return (
+      <XStack
+        backgroundColor={"black"}
+        height={70}
+        borderRadius={20}
+        alignItems={"center"}
+        gap={30}
+        paddingHorizontal={20}
+      >
+        <Checkbox
+          borderRadius={20}
+          width={28}
+          height={28}
+          borderWidth={2}
+          borderColor={color}
+        >
+          <Checkbox.Indicator>
+            <CheckIcon color={"white"} />
+          </Checkbox.Indicator>
+        </Checkbox>
+        <Text color={"#ccc"} fontSize={16}>
+          {title}
+        </Text>
+      </XStack>
+    );
+  };
+
   return (
     <View style={styles.tasksContainer}>
       <SectionTitle title={title}>
-        <XStack backgroundColor={"black"} height={70} borderRadius={20}   alignItems={"center"} gap={20}>
-          <Checkbox >
-            <Checkbox.Indicator>
-                <CheckIcon color={"white"} />
-            </Checkbox.Indicator>
-          </Checkbox>
-          <Text color={"white"} fontSize={16}>
-            CATEGORIES
-          </Text>
-        </XStack>
+        <FlatList
+          style={{ height: '100%' }}
+          data={todos} 
+          renderItem={({item}) => renderItem(item)}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={Platform.OS === 'web'}
+          contentContainerStyle={{paddingVertical: 0}}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        />
       </SectionTitle>
     </View>
   );
@@ -28,6 +62,7 @@ export default function Tasks() {
 function createStyles() {
   return StyleSheet.create({
     tasksContainer: {
+      flex: 1,
       marginTop: 20,
     },
   });

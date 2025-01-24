@@ -5,12 +5,13 @@ import { StyleSheet } from "react-native";
 type SectionTitleProps = {
   title: string;
   children: ReactNode;
+  flex?: number;
 };
 
-export default function SectionTitle({ title, children }: SectionTitleProps) {
+export default function SectionTitle({ title,flex, children }: SectionTitleProps) {
   const styles = createStyles();
   return (
-    <YStack>
+    <YStack flex={0}>
       <Text color="grey" fontSize={14} style={styles.sectionTitle}   >
         {title}
       </Text>
