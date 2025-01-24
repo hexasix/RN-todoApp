@@ -1,6 +1,7 @@
 import React from "react";
 import { View, FlatList, Platform, StyleSheet } from "react-native";
-import { Text, YStack, XStack } from "tamagui";
+import { Text, YStack } from "tamagui";
+import SectionTitle from "../common/sectionTitle";
 
 const subTitleColor = "grey";
 
@@ -52,19 +53,16 @@ export default function Category() {
   );
 
   return (
-    <YStack>
-      <Text color={subTitleColor} fontSize={14}>
-        CATEGORIES
-      </Text>
+    <SectionTitle title="CATEGORIES">
       <FlatList
         data={categories}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingVertical: 10, marginTop: 20 }}
+        contentContainerStyle={{ paddingVertical: 10, }}
       />
-    </YStack>
+    </SectionTitle>
   );
 }
 
