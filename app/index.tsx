@@ -3,7 +3,7 @@ import { YStack, XStack, Text, Button, H1 } from "tamagui";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import TopBar from "../components/index/topBar";
 import Category from "@/components/index/category";
-import Tasks from "@/components/index/tasks"; 
+import Tasks from "@/components/index/tasks";
 const topBarColor = "grey";
 const backgroundColor = "#1e1e1e";
 export default function Home() {
