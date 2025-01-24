@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
   },
   mainContent: {
-    marginHorizontal: 30,
+    width: "80%",
+    alignSelf: "center",
   },
   headingArea: {
     paddingVertical: 30,
