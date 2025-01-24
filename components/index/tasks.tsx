@@ -57,7 +57,6 @@ export default function Tasks() {
     );
   };
 
-  const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const loadTodos = async () => {
