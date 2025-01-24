@@ -5,7 +5,7 @@ import { Text, YStack, XStack, Checkbox } from "tamagui";
 import { StyleSheet, FlatList } from "react-native";
 import SectionTitle from "../../common/sectionTitle";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
-import { saveData, loadData, removeData } from "@/utils/crud";
+import { saveData, loadData} from "@/utils/crud";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { handleCheckboxChange, deleteTask } from "@/components/index/tasks/events";
 import { SwipeActions } from "@/components/index/tasks/swipeActions";
@@ -31,6 +31,7 @@ export default function Tasks() {
         borderRadius={20}
         alignItems={"center"}
         gap={30}
+        elevation={20}
         paddingHorizontal={20}
       >
         <Checkbox
