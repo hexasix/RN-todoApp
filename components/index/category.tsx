@@ -60,7 +60,7 @@ export default function Category() {
         keyExtractor={(item) => item.id.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingVertical: 10, }}
+        contentContainerStyle={{ paddingVertical: 0 }}
       />
     </SectionTitle>
   );
