@@ -10,6 +10,7 @@ import { saveData, loadData, removeData } from "@/utils/crud";
 export default function Tasks() {
   const title = "TODAY'S TASKS";
   const styles = createStyles();
+  const [todos, setTodos] = useState<Todo[]>([]);
   const renderItem = ({
     title,
     color,
