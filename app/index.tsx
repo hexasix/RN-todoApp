@@ -15,6 +15,7 @@ export default function Home() {
           width="100%"
           maxWidth={1000}
           alignSelf="center"
+          flex={0}
         >
           {/* Top Bar */}
         <TopBar topBarColor={topBarColor} />
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
   mainContent: {
     width: "80%",
     alignSelf: "center",
+    flex: 1,
   },
   headingArea: {
     paddingVertical: 30,
