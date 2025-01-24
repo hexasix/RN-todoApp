@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { View, ScrollView, Platform } from "react-native";
 import { Text, YStack, XStack, Checkbox } from "tamagui";
 import { StyleSheet, FlatList } from "react-native";
-import SectionTitle from "../common/sectionTitle";
+import SectionTitle from "../../common/sectionTitle";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { saveData, loadData, removeData } from "@/utils/crud";
+import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import { handleCheckboxChange, deleteTask } from "@/components/index/tasks/events";
 
 export default function Tasks() {
   const title = "TODAY'S TASKS";
@@ -39,7 +41,7 @@ export default function Tasks() {
           borderColor={color}
           backgroundColor={completed ? color : "transparent"}
           checked={completed}
-          onCheckedChange={() => handleCheckboxChange(id)}
+          onCheckedChange={() => handleCheckboxChange(id, todos, setTodos)}
         >
           <Checkbox.Indicator>
             <CheckIcon color={"white"} />
@@ -56,7 +58,6 @@ export default function Tasks() {
       </XStack>
     );
   };
-
 
   useEffect(() => {
     const loadTodos = async () => {
@@ -76,13 +77,6 @@ export default function Tasks() {
     };
     saveTodos();
   }, [todos]);
-
-  const handleCheckboxChange = (id: number) => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
-    setTodos(updatedTodos);
-  };
 
   return (
     <View style={styles.tasksContainer}>
