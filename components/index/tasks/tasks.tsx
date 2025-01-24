@@ -6,9 +6,9 @@ import { StyleSheet, FlatList } from "react-native";
 import SectionTitle from "../../common/sectionTitle";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { saveData, loadData, removeData } from "@/utils/crud";
-import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { handleCheckboxChange, deleteTask } from "@/components/index/tasks/events";
-
+import { SwipeActions } from "@/components/index/tasks/swipeActions";
 export default function Tasks() {
   const title = "TODAY'S TASKS";
   const styles = createStyles();
@@ -24,7 +24,7 @@ export default function Tasks() {
     completed: boolean;
     id: number;
   }) => {
-    return (
+    const renderContent = () => (
       <XStack
         backgroundColor={"black"}
         height={70}
@@ -57,12 +57,24 @@ export default function Tasks() {
         </Text>
       </XStack>
     );
+
+    return (
+      <ReanimatedSwipeable
+        onSwipeableOpen={(direction) => deleteTask(id, todos, setTodos)}
+        leftThreshold={80}
+        rightThreshold={80}
+        renderLeftActions={() => SwipeActions("left")}
+        renderRightActions={() => SwipeActions("right")}
+      >
+        {renderContent()}
+      </ReanimatedSwipeable>
+    );
   };
 
   useEffect(() => {
     const loadTodos = async () => {
       const todos = await loadData();
-      if (todos) {
+      if (todos && todos.length > 0) {
         setTodos(todos);
       } else {
         setTodos(mockTodos);
