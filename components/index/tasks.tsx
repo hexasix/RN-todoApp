@@ -89,7 +89,7 @@ export default function Tasks() {
       <SectionTitle title={title}>
         <FlatList
           style={{ height: "100%" }}
-          data={todos ?? mockTodos}
+          data={todos}
           renderItem={({ item }) => renderItem(item)}
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator={Platform.OS === "web"}
