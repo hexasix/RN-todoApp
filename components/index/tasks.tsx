@@ -1,9 +1,11 @@
-import { TaskColor, todos } from "@/mock/todos";
-import { View,ScrollView, Platform } from "react-native";
+import { TaskColor, todos as mockTodos, Todo } from "@/mock/todos";
+import { useState, useEffect } from "react";
+import { View, ScrollView, Platform } from "react-native";
 import { Text, YStack, XStack, Checkbox } from "tamagui";
 import { StyleSheet, FlatList } from "react-native";
 import SectionTitle from "../common/sectionTitle";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
+import { saveData, loadData, removeData } from "@/utils/crud";
 
 export default function Tasks() {
   const title = "TODAY'S TASKS";
@@ -11,9 +13,13 @@ export default function Tasks() {
   const renderItem = ({
     title,
     color,
+    completed,
+    id,
   }: {
     title: string;
     color: TaskColor;
+    completed: boolean;
+    id: number;
   }) => {
     return (
       <XStack
@@ -30,28 +36,64 @@ export default function Tasks() {
           height={28}
           borderWidth={2}
           borderColor={color}
+          backgroundColor={completed ? color : "transparent"}
+          checked={completed}
+          onCheckedChange={() => handleCheckboxChange(id)}
         >
           <Checkbox.Indicator>
             <CheckIcon color={"white"} />
           </Checkbox.Indicator>
         </Checkbox>
-        <Text color={"#ccc"} fontSize={16}>
+        <Text
+          color={"#ccc"}
+          fontSize={16}
+          textDecorationLine={completed ? "line-through" : "none"}
+          textDecorationColor={"white"}
+        >
           {title}
         </Text>
       </XStack>
     );
   };
 
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      const todos = await loadData();
+      if (todos) {
+        setTodos(todos);
+      } else {
+        setTodos(mockTodos);
+      }
+    };
+    loadTodos();
+  }, []);
+
+  useEffect(() => {
+    const saveTodos = async () => {
+      await saveData(todos);
+    };
+    saveTodos();
+  }, [todos]);
+
+  const handleCheckboxChange = (id: number) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+  };
+
   return (
     <View style={styles.tasksContainer}>
       <SectionTitle title={title}>
         <FlatList
-          style={{ height: '100%' }}
-          data={todos} 
-          renderItem={({item}) => renderItem(item)}
+          style={{ height: "100%" }}
+          data={todos ?? mockTodos}
+          renderItem={({ item }) => renderItem(item)}
           keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={Platform.OS === 'web'}
-          contentContainerStyle={{paddingVertical: 0}}
+          showsVerticalScrollIndicator={Platform.OS === "web"}
+          contentContainerStyle={{ paddingVertical: 0 }}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         />
       </SectionTitle>
