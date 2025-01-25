@@ -7,7 +7,7 @@ import Tasks from "@/components/index/tasks/tasks";
 import { Plus, X } from '@tamagui/lucide-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { AddTaskModal } from "@/components/index/modal";
+import { AddTaskModal } from "@/components/index/modal/modal";
 const topBarColor = "grey";
 const backgroundColor = "#1e1e1e";
 
