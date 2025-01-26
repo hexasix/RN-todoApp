@@ -16,7 +16,13 @@ type AddTaskModalProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
 
-export function AddTaskModal({ isModalVisible, setIsModalVisible, backgroundColor, todos, setTodos }: AddTaskModalProps) {
+export function AddTaskModal({
+  isModalVisible,
+  setIsModalVisible,
+  backgroundColor,
+  todos,
+  setTodos,
+}: AddTaskModalProps) {
   const [taskName, setTaskName] = useState<string>("");
   return (
     <Modal
@@ -60,11 +66,21 @@ export function AddTaskModal({ isModalVisible, setIsModalVisible, backgroundColo
             </XStack>
           </XStack>
           {/* form content */}
-          <Form placeholder="Enter New Task" setTaskName={setTaskName} taskName={taskName}/>
+          <Form
+            placeholder="Enter New Task"
+            setTaskName={setTaskName}
+            taskName={taskName}
+          />
         </YStack>
       </YStack>
 
-      <BottomRightCloseButton setIsModalVisible={setIsModalVisible} taskName={taskName} todos={todos} setTodos={setTodos} />
+      <BottomRightCloseButton
+        setIsModalVisible={setIsModalVisible}
+        taskName={taskName}
+        todos={todos}
+        setTodos={setTodos}
+        setTaskName={setTaskName}
+      />
     </Modal>
   );
 }
