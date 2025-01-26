@@ -3,15 +3,20 @@ import { Modal } from "react-native";
 import { YStack, XStack, Text } from "tamagui";
 import { Plus, X } from "@tamagui/lucide-icons";
 import { useState } from "react";
+import { TaskColor } from "@/mock/todos";
 import BottomRightCloseButton from "./bottomRightCloseButton";
 import Form from "./form";
+import { Todo } from "@/mock/todos";
+
 type AddTaskModalProps = {
   isModalVisible: boolean;
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
   backgroundColor: string;
+  todos: Todo[];
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
 
-export function AddTaskModal({ isModalVisible, setIsModalVisible, backgroundColor }: AddTaskModalProps) {
+export function AddTaskModal({ isModalVisible, setIsModalVisible, backgroundColor, todos, setTodos }: AddTaskModalProps) {
   const [taskName, setTaskName] = useState<string>("");
   return (
     <Modal
@@ -59,7 +64,7 @@ export function AddTaskModal({ isModalVisible, setIsModalVisible, backgroundColo
         </YStack>
       </YStack>
 
-      <BottomRightCloseButton setIsModalVisible={setIsModalVisible} />
+      <BottomRightCloseButton setIsModalVisible={setIsModalVisible} taskName={taskName} todos={todos} setTodos={setTodos} />
     </Modal>
   );
 }

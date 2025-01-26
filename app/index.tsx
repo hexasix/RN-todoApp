@@ -6,17 +6,41 @@ import Category from "@/components/index/category";
 import Tasks from "@/components/index/tasks/tasks";
 import { Plus, X } from '@tamagui/lucide-icons';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { AddTaskModal } from "@/components/index/modal/modal";
+import { Todo } from "@/mock/todos";
+import { loadData, saveData } from "@/utils/crud";
+import { todos as mockTodos } from "@/mock/todos";
 const topBarColor = "grey";
 const backgroundColor = "#1e1e1e";
 
 export default function Home() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
+  const [taskName, setTaskName] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
   // Get screen height
   const screenHeight = Dimensions.get('window').height;
   const modalHeight = screenHeight * 1; // 80% of screen height
+
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      const todos = await loadData();
+      if (todos && todos.length > 0) {
+        setTodos(todos);
+      } else {
+        setTodos(mockTodos);
+      }
+    };
+    loadTodos();
+  }, []);
+
+  useEffect(() => {
+    const saveTodos = async () => {
+      await saveData(todos);
+    };
+    saveTodos();
+  }, [todos]);
 
   return (
     <>
@@ -40,7 +64,7 @@ export default function Home() {
             {/* Categories */}
             <Category></Category>
             {/* Tasks */}
-            <Tasks></Tasks>
+            <Tasks todos={todos} setTodos={setTodos}></Tasks>
           </YStack>
         </View>
       </SafeAreaView>
@@ -69,6 +93,8 @@ export default function Home() {
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         backgroundColor={backgroundColor}
+        todos={todos}
+        setTodos={setTodos}
       />
     </>
   );

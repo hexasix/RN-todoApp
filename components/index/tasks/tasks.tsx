@@ -9,10 +9,10 @@ import { saveData, loadData} from "@/utils/crud";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { handleCheckboxChange, deleteTask } from "@/components/index/tasks/events";
 import { SwipeActions } from "@/components/index/tasks/swipeActions";
-export default function Tasks() {
+import { Dispatch, SetStateAction } from "react";
+export default function Tasks({todos, setTodos}: {todos: Todo[], setTodos: Dispatch<SetStateAction<Todo[]>>}) {
   const title = "TODAY'S TASKS";
   const styles = createStyles();
-  const [todos, setTodos] = useState<Todo[]>([]);
   const renderItem = ({
     title,
     color,
@@ -72,24 +72,6 @@ export default function Tasks() {
     );
   };
 
-  useEffect(() => {
-    const loadTodos = async () => {
-      const todos = await loadData();
-      if (todos && todos.length > 0) {
-        setTodos(todos);
-      } else {
-        setTodos(mockTodos);
-      }
-    };
-    loadTodos();
-  }, []);
-
-  useEffect(() => {
-    const saveTodos = async () => {
-      await saveData(todos);
-    };
-    saveTodos();
-  }, [todos]);
 
   return (
     <View style={styles.tasksContainer}>
