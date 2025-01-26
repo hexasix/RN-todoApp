@@ -32,7 +32,9 @@ export default function BottomRightCloseButton({
         category: "Default",
         color: randomColor,
       };
+      // save the new todo
       setTodos([newTodo, ...todos]);
+      // clear the task name
       setTaskName("");
     }
     setIsModalVisible(false);

@@ -22,7 +22,7 @@ export default function Home() {
   const screenHeight = Dimensions.get('window').height;
   const modalHeight = screenHeight * 1; // 80% of screen height
 
-
+  // Load todos from local storage
   useEffect(() => {
     const loadTodos = async () => {
       const todos = await loadData();
@@ -35,6 +35,7 @@ export default function Home() {
     loadTodos();
   }, []);
 
+  // Save todos to local storage
   useEffect(() => {
     const saveTodos = async () => {
       await saveData(todos);
