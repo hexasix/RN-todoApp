@@ -1,6 +1,6 @@
 # Welcome to a Todo App. 👋
 
-This is an [Expo](https://expo.dev) Todo APp created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an [Expo](https://expo.dev) Todo App created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
 
